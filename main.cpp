@@ -9,7 +9,12 @@ int cpi(string binario){
     {
     case 1100100:
         return 4;
+        break;
+    default : 
+        return 0;
     }
+   
+
 
 }
 
