@@ -4,9 +4,20 @@
 
 using namespace std;
 
+int cpi(string binario){
+    switch (stoi(binario))
+    {
+    case 1100100:
+        return 4;
+    }
+
+}
+
+
 int main (){
     ifstream arquivo("./Execicio1Hex");
     string linha, comando;
+    int total_de_ciclos = 0;
 
     if(arquivo.is_open()){
         while (getline(arquivo, linha))
@@ -16,11 +27,14 @@ int main (){
                 comando = comando + linha[i];
 
             }
+            total_de_ciclos += cpi(comando);
             cout << comando << endl;
+
             comando = "";
 
         }
     }
+    cout << total_de_ciclos << endl;
 
     return 0;
 }
