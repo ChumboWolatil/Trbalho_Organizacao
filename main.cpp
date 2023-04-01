@@ -16,7 +16,8 @@ int cpi(string binario){
 
 int main (){
     ifstream arquivo("./Execicio1Hex");
-    string linha, comando;
+    string linha;
+    char * comando;
     int total_de_ciclos = 0;
 
     if(arquivo.is_open()){
