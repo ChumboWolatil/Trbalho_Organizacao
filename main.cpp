@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 
+
 using namespace std;
 
 int cpi( string binario){
@@ -29,12 +30,10 @@ int main (){
         while (getline(arquivo, linha))
         {
 
-            for (int i = 32; i >= 25; i--){
+            for (int i = 31; i >= 25; i--){
                 comando = comando + linha[i];
 
             }
-            comando.erase(std::remove_if(comando.begin(), comando.end(), ::isspace),
-            comando.end());
             total_de_ciclos += cpi(comando);
             cout << comando << endl;
 
