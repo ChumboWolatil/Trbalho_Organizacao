@@ -16,7 +16,8 @@ int main (){
                 comando = comando + linha[i];
 
             }
-            cout << endl;
+            cout << comando << endl;
+            comando = "";
 
         }
     }
