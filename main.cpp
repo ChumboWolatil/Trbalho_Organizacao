@@ -4,8 +4,8 @@
 
 using namespace std;
 
-int cpi( char * binario){
-    int bin = atoi(binario);
+int cpi( string binario){
+    int bin = stoi(binario);
     switch (bin)
     {
     case 1100100:
@@ -22,8 +22,7 @@ int cpi( char * binario){
 
 int main (){
     ifstream arquivo("./Execicio1Hex");
-    string linha;
-    char * comando;
+    string linha, comando;
     int total_de_ciclos = 0;
 
     if(arquivo.is_open()){
@@ -34,6 +33,8 @@ int main (){
                 comando = comando + linha[i];
 
             }
+            comando.erase(std::remove_if(comando.begin(), comando.end(), ::isspace),
+            comando.end());
             total_de_ciclos += cpi(comando);
             cout << comando << endl;
 
