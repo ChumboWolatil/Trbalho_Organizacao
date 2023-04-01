@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <bitset>
 
 using namespace std;
 
@@ -12,7 +11,7 @@ int main (){
     if(arquivo.is_open()){
         while (getline(arquivo, linha))
         {
-            cout << bitset<32>(linha);   
+            cout << linha << endl;
 
         }
     }
