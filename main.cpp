@@ -5,14 +5,14 @@
 using namespace std;
 
 int main (){
-    ifstream arquivo("./Exercicio1Hex");
+    ifstream arquivo("./Execicio1Hex");
     string linha;
     if(arquivo.is_open()){
         while (getline(arquivo, linha))
         {
-            cout << linha;   
+            cout << linha << endl;
         }
-        
+
     }
 
 
