@@ -11,7 +11,10 @@ int main (){
     if(arquivo.is_open()){
         while (getline(arquivo, linha))
         {
-            cout << linha << endl;
+            for (int i = 32; i > 25; i--){
+                cout << linha[i];
+            }
+            cout << endl;
 
         }
     }
