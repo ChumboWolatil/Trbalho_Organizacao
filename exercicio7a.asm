@@ -17,7 +17,7 @@ leaf_example:
        add a0, a2, a3   # $v0 = g + h
        add a1, a4, a5   # $v1 = i + j
        sub a0, a0, a1   # f = $t0 - $t1
-  	 jalr zero, ra, 0       # retorna do procedimento
+ 	jalr zero, ra, 0       # retorna do procedimento
 
 main:    
        addi a2, zero, 4   # inicializa 1º parâmetro (g)
