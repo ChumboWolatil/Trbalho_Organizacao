@@ -6,13 +6,13 @@ using namespace std;
 
 int main (){
     ifstream arquivo("./Execicio1Hex");
-    string linha;
+    string linha, comando;
 
     if(arquivo.is_open()){
         while (getline(arquivo, linha))
         {
             for (int i = 32; i > 25; i--){
-                cout << linha[i];
+                comando = comando + linha[i];
             }
             cout << endl;
 
