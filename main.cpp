@@ -5,7 +5,8 @@
 using namespace std;
 
 int cpi(string binario){
-    switch (stoi(binario))
+    int bin = stoi(binario);
+    switch (bin)
     {
     case 1100100:
         return 4;
