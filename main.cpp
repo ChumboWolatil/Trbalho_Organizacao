@@ -70,9 +70,8 @@ int cpi( string binario){
 
 }
 
-
 int main (){
-    ifstream arquivo("./Exercicio8Hex");
+    ifstream arquivo("./Exercicio1Hex");
     string linha, comando;
     float total_de_ciclos = 0;
     int instrucao = 0;
@@ -92,9 +91,9 @@ int main (){
             }
         }
     }
-    cout << "\nCPI = " << (total_de_ciclos)/(instrucao) << endl;
-    //cout << "TOTAL: " << total_de_ciclos << endl;
-    //cout << "\nINSTRUCOES: " << instrucao << endl;
+    cout << "\nTOTAL DE CICLOS: " << total_de_ciclos << endl;
+    cout << "INSTRUCOES: " << instrucao << endl;
+    cout << "CPI = " << (total_de_ciclos)/(instrucao) << endl;
 
     return 0;
 }
