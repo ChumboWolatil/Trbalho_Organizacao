@@ -45,18 +45,18 @@ int cpi( string binario){
         break;
 
     case 1111011:       //jal tipo J
-        cout << "jal (3 ciclos) - ";
-        return 3;
+        cout << "jal (4 ciclos) - ";
+        return 4;
         break;
 
     case 1110100:       //auipc tipo U
-        cout << "auipc (5 ciclos) - ";
-        return 5;
+        cout << "auipc (3 ciclos) - ";
+        return 3;
         break;
 
     case 1110011:       //jalr tipo I
-        cout << "jalr (1 ciclos) - ";
-        return 1;
+        cout << "jalr (4 ciclos) - ";
+        return 4;
         break;
 
     case 1100111:       //ecall tipo I
@@ -71,7 +71,7 @@ int cpi( string binario){
 }
 
 int main (){
-    ifstream arquivo("./Exercicio1Hex");
+    ifstream arquivo("./Exercicio6Hex");
     string linha, comando;
     float total_de_ciclos = 0;
     int instrucao = 0;
