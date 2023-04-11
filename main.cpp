@@ -71,7 +71,7 @@ int cpi( string binario){
 }
 
 int main (){
-    ifstream arquivo("./Exercicio6Hex");
+    ifstream arquivo("./Exercicio1Hex");
     string linha, comando;
     float total_de_ciclos = 0;
     int instrucao = 0;
