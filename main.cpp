@@ -30,7 +30,7 @@ int cpi( string binario){
 
 
     case 1100000:       //lw tipo I
-        cout << "lw (? ciclos) - ";
+        cout << "lw (5 ciclos) - ";
         return 5;
         break;
 
@@ -55,13 +55,13 @@ int cpi( string binario){
         break;
 
     case 1110011:       //jalr tipo I
-        cout << "jalr (? ciclos) - ";
+        cout << "jalr (1 ciclos) - ";
         return 1;
         break;
 
     case 1100111:       //ecall tipo I
-        cout << "ecall (? ciclos) - ";
-        return 1;
+        cout << "ecall (ignorado) - ";
+        return 0;
         break;
 
     default :
@@ -72,9 +72,9 @@ int cpi( string binario){
 
 
 int main (){
-    ifstream arquivo("./Exercicio1Hex");
+    ifstream arquivo("./Exercicio8Hex");
     string linha, comando;
-    int total_de_ciclos = 0;
+    float total_de_ciclos = 0;
     int instrucao = 0;
 
     if(arquivo.is_open()){
@@ -85,11 +85,16 @@ int main (){
             }
             total_de_ciclos += cpi(comando);
             cout << comando << endl;
-            comando = "";
-            instrucao++;
+
+            if(comando != "1100111"){   //ignora ecall
+                comando = "";
+                instrucao++;
+            }
         }
     }
     cout << "\nCPI = " << (total_de_ciclos)/(instrucao) << endl;
+    //cout << "TOTAL: " << total_de_ciclos << endl;
+    //cout << "\nINSTRUCOES: " << instrucao << endl;
 
     return 0;
 }
