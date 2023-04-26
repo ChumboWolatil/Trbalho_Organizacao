@@ -1,77 +1,78 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+enum {
+    TYPEi=1100100,
+    TYPEb=1100011,
+    TYPEr=1100110,
+    TYPEs=1100010,
+    TYPEj=1111011,
+    TYPEu=1110100
 
+};
 
 using namespace std;
 
-/*
-    Store (4 cycles)
-    Load (5 cycles)
-    I-type (4 cycles)
-    R-type (4 cycles)
-    Branch (3 cycles)
-    Jump (3 cycles)
+/*falta arrumar
+0010111   la auipc type U
+0010011   la addi type I
+0010011   addi    type I
+0010011   addi    type I
+1100011   addi    type I
+0010011   beq     type B
+0110011   slli    type R
+0100011   add     type R
+0010011   sw      type S
+1101111   addi    type I
+0010011   jal     type J
+0000011    addi    type I
 */
 
-int cpi( string binario){
-    int bin = stoi(binario);
-    switch (bin)
-    {
-    case 1100100:       //addi tipo I
-        cout << "addi (4 ciclos) - ";
-        return 4;
-        break;
+/*
+type I rd rs1
+*type R rd rs1 rs2
 
-    case 1100110:       //add tipo R
-        cout << "add (4 ciclos) - ";
-        return 4;
-        break;
+type B rs1 rs2
+type S rs1 rs2
+
+type J rd
+type U rd
+*/
 
 
-    case 1100000:       //lw tipo I
-        cout << "lw (5 ciclos) - ";
-        return 5;
-        break;
-
-    case 1100010:       //sw tipo S
-        cout << "sw (4 ciclos) - ";
-        return 4;
-        break;
-
-    case 1100011:       //beq tipo B
-        cout << "beq (3 ciclos) - ";
-        return 3;
-        break;
-
-    case 1111011:       //jal tipo J
-        cout << "jal (4 ciclos) - ";
-        return 4;
-        break;
-
-    case 1110100:       //auipc tipo U
-        cout << "auipc (3 ciclos) - ";
-        return 3;
-        break;
-
-    case 1110011:       //jalr tipo I
-        cout << "jalr (4 ciclos) - ";
-        return 4;
-        break;
-
-    case 1100111:       //ecall tipo I
-        cout << "ecall (ignorado) - ";
-        return 0;
-        break;
-
-    default :
-        return 0;
-    }
+string verifica_registrador(rd, rs1, rs2){
 
 }
 
+int cpi(string binario, string rd, string rs1){
+    int bin = stoi(binario);
+    string x;
+    switch (bin)
+    {
+    case TYPEi:
+        x = verifica_registrador(rd);
+        x = verifica_registrador(rs1);
+
+    case TYPEr:
+        x = verifica_registrador(rd);
+        x = verifica_registrador(rs1);
+        x = verifica_registrador(rs2);
+        break;
+
+    case TYPEb:
+    case TYPEs
+        x = verifica_registrador(rs1);
+        x = verifica_registrador(rs2);
+        break;
+
+    case TYPEj:
+    case TYPEu
+        x = verifica_registrador(rd);
+        break;
+}
+
 int main (){
-    ifstream arquivo("./Exercicio1Hex");
+    ifstream arquivo("./hazardHEX");
     string linha, comando;
     float total_de_ciclos = 0;
     int instrucao = 0;
@@ -85,7 +86,7 @@ int main (){
             total_de_ciclos += cpi(comando);
             cout << comando << endl;
 
-            if(comando != "1100111"){   //ignora ecall
+            if(comando != "1100111"){
                 comando = "";
                 instrucao++;
             }
@@ -97,4 +98,3 @@ int main (){
 
     return 0;
 }
-
