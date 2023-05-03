@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+
 enum {
     TYPEi=1100100,
     TYPEb=1100011,
@@ -10,6 +12,20 @@ enum {
     TYPEu=1110100
 
 };
+
+enum {
+    RD = 0,
+    RS1 = 1,
+    RS2 = 2
+};
+
+struct reg{
+    char * bin;
+    int vezes;
+};
+reg mem[6];
+
+
 
 using namespace std;
 
@@ -40,40 +56,86 @@ type U rd
 */
 
 
-string verifica_registrador(rd, rs1, rs2){
+bool verifica_registrador(char * r, int registrador){
+    reg vazio, item;
+    item.bin = r;
+    item.vezes=0;
+    vazio.bin = nullptr;
+    vazio.vezes = 0;
+    for (int i = 0; i < 6; i++){
+        if (mem[i].bin == nullptr){
+            mem[i] = item;
+            break;
+        }
+    }
+    for (int i = 0; i < 6; i++){
 
+         if(mem[i].bin != nullptr){
+             mem[i].vezes++;
+         }
+
+    }
+
+    for(int i = 0; i < 6; i++){
+        if(mem[i].vezes == 2){
+            mem[i] = vazio;
+        }
+        if (mem[i].bin == r && registrador == RD){
+            mem[i].vezes = 0;
+            return true;
+        } else if (mem[i].bin == r){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
 }
 
-int cpi(string binario, string rd, string rs1){
+
+bool verifica_tipo(char * binario, char *rd, char *rs1, char *rs2){
     int bin = stoi(binario);
-    string x;
+    bool x[3] = {false};
     switch (bin)
     {
     case TYPEi:
-        x = verifica_registrador(rd);
-        x = verifica_registrador(rs1);
+        x[0] = verifica_registrador(rd , RD);
+        x[1] = verifica_registrador(rs1, RS1);
+        break;
 
     case TYPEr:
-        x = verifica_registrador(rd);
-        x = verifica_registrador(rs1);
-        x = verifica_registrador(rs2);
+        x[0] = verifica_registrador(rd, RD);
+        x[1] = verifica_registrador(rs1, RS1);
+        x[2] = verifica_registrador(rs2, RS2);
         break;
 
     case TYPEb:
-    case TYPEs
-        x = verifica_registrador(rs1);
-        x = verifica_registrador(rs2);
+    case TYPEs:
+        x[0] = verifica_registrador(rs1, RS1);
+        x[1] = verifica_registrador(rs2, RS2);
         break;
 
     case TYPEj:
-    case TYPEu
-        x = verifica_registrador(rd);
+    case TYPEu:
+        x[2] = verifica_registrador(rd, RD);
         break;
+    }
+    return x;
 }
 
-int main (){
+void inserir_bolha(string linha){
+
+}
+
+void verifica_hazard(){
+
+}
+
+int main () {
     ifstream arquivo("./hazardHEX");
-    string linha, comando;
+    string linha;
+    char * comando, rd, rs1, rs2;
     float total_de_ciclos = 0;
     int instrucao = 0;
 
@@ -83,13 +145,18 @@ int main (){
             for (int i = 31; i >= 25; i--){
                 comando = comando + linha[i];
             }
-            total_de_ciclos += cpi(comando);
+            for (int i = 26; i>= 22; i--){
+                rd = rd +linha[i];
+            }
+            for (int i = 16; i>= 12; i--){
+                rs1 = rs1 +linha[i];
+            }
+            for (int i = 21; i>= 17; i--){
+                rs2 = rs2 +linha[i];
+            }
+            total_de_ciclos += verifica_tipo(comando, &rd, &rs1, &rs2);
             cout << comando << endl;
 
-            if(comando != "1100111"){
-                comando = "";
-                instrucao++;
-            }
         }
     }
     cout << "\nTOTAL DE CICLOS: " << total_de_ciclos << endl;
