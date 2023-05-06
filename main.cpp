@@ -124,7 +124,7 @@ bool *verifica_tipo(int binario, string rd, string rs1, string rs2){
         cout << "j / u" << endl;
         break;
     }
-    return x;
+    return x[0];
 }
 
 void inserir_bolha(string linha){
