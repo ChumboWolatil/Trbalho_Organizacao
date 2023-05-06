@@ -24,8 +24,8 @@ struct reg {
     int vezes;
 };
 reg vazio;
-vazio.bin = 2;
-vazio.vezes = 0;
+vazio->bin = 2;
+vazio->vezes = 0;
 reg mem[6] = {vazio};
 
 
@@ -59,7 +59,7 @@ type U rd
 */
 
 
-bool verifica_registrador(char * r, int registrador){
+bool verifica_registrador(int r, int registrador){
     reg vazio, item;
     item.bin = r;
     item.vezes=0;
