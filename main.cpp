@@ -139,7 +139,7 @@ int main () {
     ifstream arquivo("./hazardHEX");
     string linha;
     string  rd , rs1, rs2;
-    char * comando;
+    string comando;
     bool  * hazard;
 
 
