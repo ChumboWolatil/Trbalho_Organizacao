@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 enum {
     TYPEi=1100100,
     TYPEb=1100011,
@@ -20,15 +22,12 @@ enum {
 };
 
 struct reg {
-    int bin = 2;
+    string bin = "";
     int vezes = 0;
 };
 
 reg mem[6];
 
-
-
-using namespace std;
 
 /*falta arrumar
 0010111   la auipc type U
@@ -63,14 +62,14 @@ bool verifica_registrador(string r, int registrador){
     item.vezes=0;
 
     for (int i = 0; i < 6; i++){
-        if (mem[i].bin == 2){
+        if (mem[i].bin == ""){
             mem[i] = item;
             break;
         }
     }
     for (int i = 0; i < 6; i++){
 
-         if(mem[i].bin != 2){
+         if(mem[i].bin != ""){
              mem[i].vezes++;
          }
 
@@ -96,7 +95,7 @@ bool verifica_registrador(string r, int registrador){
 
 bool *verifica_tipo(string binario, string rd, string rs1, string rs2){
 
-    
+    int bin = stoi(binario);
     bool x[3] = {false};
     switch (bin)
     {
@@ -148,22 +147,26 @@ int main () {
 
         while (getline(arquivo, linha))
         {
-            
+
             cout << linha << endl;
             for (int i = 31; i >= 25; i--){
                 comando = comando + linha[i];
             }
+            cout << endl << comando << endl;
             for (int i = 26; i>= 22; i--){
                 rd = rd +linha[i];
-                
+
             }
+            cout << rd << endl;
             for (int i = 16; i>= 12; i--){
                 rs1 = rs1 +linha[i];
-               
+
             }
+            cout << rs1 << endl;
             for (int i = 21; i>= 17; i--){
                 rs2 = rs2 + linha[i];
             }
+            cout << rs2 << endl;
             hazard = verifica_tipo(comando, rd, rs1, rs2);
             if (hazard[0] || hazard[1] || hazard[3]){
                 //inserir_bolha(linha);
