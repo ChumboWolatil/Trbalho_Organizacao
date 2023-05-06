@@ -20,13 +20,11 @@ enum {
 };
 
 struct reg {
-    int bin;
-    int vezes;
+    int bin = 2;
+    int vezes = 0;
 };
-reg vazio;
-vazio->bin = 2;
-vazio->vezes = 0;
-reg mem[6] = {vazio};
+
+reg mem[6];
 
 
 
@@ -140,30 +138,35 @@ void verifica_hazard(){
 
 int main () {
     ifstream arquivo("./hazardHEX");
-    string linhas;
-    int comando, rd, rs1, rs2, linha;
+    string linha;
+    int comando = 0, rd=0 , rs1=0, rs2=0;
+    string comandos, rds , rs1s, rs2s;
     bool  * hazard;
 
 
     if(arquivo.is_open()){
 
-        while (getline(arquivo, linhas))
+        while (getline(arquivo, linha))
         {
-            linha = stoi(linhas);
+            
             cout << linha << endl;
             for (int i = 31; i >= 25; i--){
-                comando = comando + linha[i];
+                comandos = comandos + linha[i];
+                comando = stoi(comandos)
             }
             for (int i = 26; i>= 22; i--){
-                rd = rd +linha[i];
+                rds = rds +linha[i];
+                rd = stoi(rds);
             }
             for (int i = 16; i>= 12; i--){
-                rs1 = rs1 +linha[i];
+                rs1s = rs1s +linha[i];
+                rs1 = stoi(rs1s);
             }
             for (int i = 21; i>= 17; i--){
-                rs2 = rs2 +linha[i];
+                rs2s = rs2s + linha[i];
+                rs2 = stoi(rs2s);
             }
-            hazard = verifica_tipo(comando, &rd, &rs1, &rs2);
+            hazard = verifica_tipo(comando, rd, rs1, rs2);
             if (hazard[0] || hazard[1] || hazard[3]){
                 //inserir_bolha(linha);
                 cout << "chegou la" << endl;
