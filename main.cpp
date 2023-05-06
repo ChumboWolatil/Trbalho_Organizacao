@@ -168,7 +168,7 @@ int main () {
             }
             cout << rs2 << endl;
             hazard = verifica_tipo(stoi(comando), rd, rs1, rs2);
-            rd = rs1 = rs2 = "";
+            rd = rs1 = rs2 = comando = "";
             if (hazard[0] || hazard[1] || hazard[3]){
                 inserir_bolha(linha);
             }
