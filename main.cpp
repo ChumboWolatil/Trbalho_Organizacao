@@ -128,7 +128,7 @@ bool *verifica_tipo(int binario, string rd, string rs1, string rs2){
 }
 
 void inserir_bolha(string linha){
-    cout << linha;
+    cout << linha << endl;
 }
 
 void verifica_hazard(){
