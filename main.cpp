@@ -94,7 +94,7 @@ bool verifica_registrador(string r, int registrador){
 }
 
 
-bool *verifica_tipo(char * binario, string rd, string rs1, string rs2)
+bool *verifica_tipo(int binario, string rd, string rs1, string rs2)
     bool x[3] = {false};
     switch (binario)
     {
@@ -167,7 +167,7 @@ int main () {
                 rs2 = rs2 + linha[i];
             }
             cout << rs2 << endl;
-            hazard = verifica_tipo(comando, rd, rs1, rs2);
+            hazard = verifica_tipo(stoi(comando), rd, rs1, rs2);
             if (hazard[0] || hazard[1] || hazard[3]){
                 //inserir_bolha(linha);
                 cout << "chegou la" << endl;
