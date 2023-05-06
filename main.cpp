@@ -20,10 +20,13 @@ enum {
 };
 
 struct reg {
-    char * bin;
+    int bin;
     int vezes;
 };
-reg mem[6];
+reg vazio;
+vazio.bin = 2;
+vazio.vezes = 0;
+reg mem[6] = {vazio};
 
 
 
@@ -60,8 +63,7 @@ bool verifica_registrador(char * r, int registrador){
     reg vazio, item;
     item.bin = r;
     item.vezes=0;
-    vazio.bin = 2;
-    vazio.vezes = 0;
+
     for (int i = 0; i < 6; i++){
         if (mem[i].bin == 2){
             mem[i] = item;
