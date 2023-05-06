@@ -60,17 +60,17 @@ bool verifica_registrador(char * r, int registrador){
     reg vazio, item;
     item.bin = r;
     item.vezes=0;
-    vazio.bin = nullptr;
+    vazio.bin = 2;
     vazio.vezes = 0;
     for (int i = 0; i < 6; i++){
-        if (mem[i].bin == nullptr){
+        if (mem[i].bin == 2){
             mem[i] = item;
             break;
         }
     }
     for (int i = 0; i < 6; i++){
 
-         if(mem[i].bin != nullptr){
+         if(mem[i].bin != 2){
              mem[i].vezes++;
          }
 
@@ -94,8 +94,8 @@ bool verifica_registrador(char * r, int registrador){
 }
 
 
-bool *verifica_tipo(char * binario, char *rd, char *rs1, char *rs2){
-    int bin = stoi(binario);
+bool *verifica_tipo(int binario, int rd, int rs1, int rs2){
+    
     bool x[3] = {false};
     switch (bin)
     {
@@ -138,15 +138,16 @@ void verifica_hazard(){
 
 int main () {
     ifstream arquivo("./hazardHEX");
-    string linha;
-    char * comando, rd, rs1, rs2;
+    string linhas;
+    int comando, rd, rs1, rs2, linha;
     bool  * hazard;
 
 
     if(arquivo.is_open()){
 
-        while (getline(arquivo, linha))
+        while (getline(arquivo, linhas))
         {
+            linha = stoi(linhas);
             cout << linha << endl;
             for (int i = 31; i >= 25; i--){
                 comando = comando + linha[i];
