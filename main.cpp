@@ -57,7 +57,7 @@ type U rd
 */
 
 
-bool verifica_registrador(int r, int registrador){
+bool verifica_registrador(string r, int registrador){
     reg vazio, item;
     item.bin = r;
     item.vezes=0;
@@ -94,7 +94,8 @@ bool verifica_registrador(int r, int registrador){
 }
 
 
-bool *verifica_tipo(int binario, int rd, int rs1, int rs2){
+bool *verifica_tipo(string binario, string rd, string rs1, string rs2){
+
     
     bool x[3] = {false};
     switch (bin)
@@ -139,8 +140,7 @@ void verifica_hazard(){
 int main () {
     ifstream arquivo("./hazardHEX");
     string linha;
-    int comando = 0, rd=0 , rs1=0, rs2=0;
-    string comandos, rds , rs1s, rs2s;
+    string comando, rd , rs1, rs2;
     bool  * hazard;
 
 
@@ -151,20 +151,18 @@ int main () {
             
             cout << linha << endl;
             for (int i = 31; i >= 25; i--){
-                comandos = comandos + linha[i];
-                comando = stoi(comandos)
+                comando = comando + linha[i];
             }
             for (int i = 26; i>= 22; i--){
-                rds = rds +linha[i];
-                rd = stoi(rds);
+                rd = rd +linha[i];
+                
             }
             for (int i = 16; i>= 12; i--){
-                rs1s = rs1s +linha[i];
-                rs1 = stoi(rs1s);
+                rs1 = rs1 +linha[i];
+               
             }
             for (int i = 21; i>= 17; i--){
-                rs2s = rs2s + linha[i];
-                rs2 = stoi(rs2s);
+                rs2 = rs2 + linha[i];
             }
             hazard = verifica_tipo(comando, rd, rs1, rs2);
             if (hazard[0] || hazard[1] || hazard[3]){
