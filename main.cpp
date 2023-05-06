@@ -57,7 +57,7 @@ type U rd
 
 
 bool verifica_registrador(string r, int registrador){
-    reg vazio, item;
+    reg item;
     item.bin = r;
     item.vezes=0;
 
@@ -77,7 +77,8 @@ bool verifica_registrador(string r, int registrador){
 
     for(int i = 0; i < 6; i++){
         if(mem[i].vezes == 2){
-            mem[i] = vazio;
+            mem[i].bin = 2;
+            mem[i].vezes = 0;
         }
         if (mem[i].bin == r && registrador == RD){
             mem[i].vezes = 0;
@@ -93,11 +94,9 @@ bool verifica_registrador(string r, int registrador){
 }
 
 
-bool *verifica_tipo(string binario, string rd, string rs1, string rs2){
-
-    int bin = stoi(binario);
+bool *verifica_tipo(char * binario, string rd, string rs1, string rs2)
     bool x[3] = {false};
-    switch (bin)
+    switch (binario)
     {
     case TYPEi:
         x[0] = verifica_registrador(rd , RD);
@@ -139,7 +138,8 @@ void verifica_hazard(){
 int main () {
     ifstream arquivo("./hazardHEX");
     string linha;
-    string comando, rd , rs1, rs2;
+    string  rd , rs1, rs2;
+    char * comando;
     bool  * hazard;
 
 
