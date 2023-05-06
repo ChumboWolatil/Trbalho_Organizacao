@@ -136,7 +136,7 @@ int main () {
     ifstream arquivo("./hazardHEX");
     string linha;
     char * comando, rd, rs1, rs2;
-    bool  hazard[3];
+    bool  * hazard;
     
 
     if(arquivo.is_open()){
@@ -155,7 +155,7 @@ int main () {
                 rs2 = rs2 +linha[i];
             }
             hazard = *verifica_tipo(comando, &rd, &rs1, &rs2);
-            if (hazard[1] || hazard[2] || hazard[3]){
+            if (hazard || hazard++ || (hazard++)++){
                 inserir_bolha(linha);
             }
 
