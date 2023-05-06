@@ -102,23 +102,27 @@ bool *verifica_tipo(char * binario, char *rd, char *rs1, char *rs2){
     case TYPEi:
         x[0] = verifica_registrador(rd , RD);
         x[1] = verifica_registrador(rs1, RS1);
+        cout << "i" << endl;
         break;
 
     case TYPEr:
         x[0] = verifica_registrador(rd, RD);
         x[1] = verifica_registrador(rs1, RS1);
         x[2] = verifica_registrador(rs2, RS2);
+        cout << "r" << endl;
         break;
 
     case TYPEb:
     case TYPEs:
         x[0] = verifica_registrador(rs1, RS1);
         x[1] = verifica_registrador(rs2, RS2);
+        cout << "b / s" << endl;
         break;
 
     case TYPEj:
     case TYPEu:
         x[2] = verifica_registrador(rd, RD);
+        cout << "j / u" << endl;
         break;
     }
     return x;
@@ -137,11 +141,13 @@ int main () {
     string linha;
     char * comando, rd, rs1, rs2;
     bool  * hazard;
-    
+
 
     if(arquivo.is_open()){
+
         while (getline(arquivo, linha))
         {
+            cout << linha << endl;
             for (int i = 31; i >= 25; i--){
                 comando = comando + linha[i];
             }
@@ -154,17 +160,14 @@ int main () {
             for (int i = 21; i>= 17; i--){
                 rs2 = rs2 +linha[i];
             }
-            hazard = *verifica_tipo(comando, &rd, &rs1, &rs2);
-            if (hazard || hazard++ || (hazard++)++){
-                inserir_bolha(linha);
+            hazard = verifica_tipo(comando, &rd, &rs1, &rs2);
+            if (hazard[0] || hazard[1] || hazard[3]){
+                //inserir_bolha(linha);
+                cout << "chegou la" << endl;
             }
-
-
         }
     }
-    cout << "\nTOTAL DE CICLOS: " << total_de_ciclos << endl;
-    cout << "INSTRUCOES: " << instrucao << endl;
-    cout << "CPI = " << (total_de_ciclos)/(instrucao) << endl;
+
 
     return 0;
 }
