@@ -19,7 +19,7 @@ enum {
     RS2 = 2
 };
 
-struct reg{
+struct reg {
     char * bin;
     int vezes;
 };
@@ -94,7 +94,7 @@ bool verifica_registrador(char * r, int registrador){
 }
 
 
-bool verifica_tipo(char * binario, char *rd, char *rs1, char *rs2){
+bool *verifica_tipo(char * binario, char *rd, char *rs1, char *rs2){
     int bin = stoi(binario);
     bool x[3] = {false};
     switch (bin)
@@ -125,7 +125,7 @@ bool verifica_tipo(char * binario, char *rd, char *rs1, char *rs2){
 }
 
 void inserir_bolha(string linha){
-
+    cout << linha;
 }
 
 void verifica_hazard(){
@@ -136,8 +136,8 @@ int main () {
     ifstream arquivo("./hazardHEX");
     string linha;
     char * comando, rd, rs1, rs2;
-    float total_de_ciclos = 0;
-    int instrucao = 0;
+    bool  hazard[3];
+    
 
     if(arquivo.is_open()){
         while (getline(arquivo, linha))
@@ -154,8 +154,11 @@ int main () {
             for (int i = 21; i>= 17; i--){
                 rs2 = rs2 +linha[i];
             }
-            total_de_ciclos += verifica_tipo(comando, &rd, &rs1, &rs2);
-            cout << comando << endl;
+            hazard = verifica_tipo(comando, &rd, &rs1, &rs2);
+            if (hazard[1] || hazard[2] || hazard[3]){
+                inserir_bolha(linha);
+            }
+
 
         }
     }
