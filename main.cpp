@@ -154,7 +154,7 @@ int main () {
             for (int i = 21; i>= 17; i--){
                 rs2 = rs2 +linha[i];
             }
-            hazard = verifica_tipo(comando, &rd, &rs1, &rs2);
+            hazard = *verifica_tipo(comando, &rd, &rs1, &rs2);
             if (hazard[1] || hazard[2] || hazard[3]){
                 inserir_bolha(linha);
             }
