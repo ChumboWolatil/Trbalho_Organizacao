@@ -5,13 +5,14 @@
 
 using namespace std;
 
-enum {
-    TYPEi=0010011,
+enum TIPO{
+    TYPEi=1100100,
     TYPEb=1100011,
-    TYPEr=0110011,
-    TYPEs=0100011,
-    TYPEj=1101111,
-    TYPEu=0010111
+    TYPEr=1100110,
+    TYPEs=1100010,
+    TYPEj=1111011,
+    TYPEu=1110100
+
 };
 
 enum {
@@ -19,16 +20,6 @@ enum {
     RS1 = 1,
     RS2 = 2
 };
-
-/*
-
-struct instrucao {  //ADICIONADO PELO PROFESSOR
-    int binario;
-    int rd, rs1, rs2;
-    TIPO t;
-};
-
-*/
 
 struct reg {
     string bin = "";
@@ -63,7 +54,11 @@ type S rs1 rs2
 type J rd
 type U rd
 */
-
+struct instrucao {
+    int binario;
+    int rd, rs1, rs2;
+    TIPO t;
+};
 
 bool verifica_registrador(string r, int registrador){
     reg item;
@@ -98,39 +93,37 @@ bool verifica_registrador(string r, int registrador){
         else {
             return false;
         }
-
     }
 }
 
 
 bool *verifica_tipo(int binario, string rd, string rs1, string rs2){
     bool x[3] = {false};
-    switch (binario)
-    {
+    switch (binario){
     case TYPEi:
         x[0] = verifica_registrador(rd , RD);
         x[1] = verifica_registrador(rs1, RS1);
-        cout << "i" << endl;
+        cout << "tipo i" << endl;
         break;
 
     case TYPEr:
         x[0] = verifica_registrador(rd, RD);
         x[1] = verifica_registrador(rs1, RS1);
         x[2] = verifica_registrador(rs2, RS2);
-        cout << "r" << endl;
+        cout << "tipo r" << endl;
         break;
 
     case TYPEb:
     case TYPEs:
         x[0] = verifica_registrador(rs1, RS1);
         x[1] = verifica_registrador(rs2, RS2);
-        cout << "b / s" << endl;
+        cout << "tipo b / s" << endl;
         break;
 
     case TYPEj:
     case TYPEu:
         x[2] = verifica_registrador(rd, RD);
-        cout << "j / u" << endl;
+        cout << "tipo j / u" << endl;
         break;
     }
     return x;
@@ -145,40 +138,30 @@ void verifica_hazard(){
 }
 
 int main () {
-    ifstream arquivo("./hazardHEX");
+    ifstream arquivo;
+    arquivo.open ("./hazardHEX");
     string linha;
     string  rd , rs1, rs2;
-    string comando;
-    bool  * hazard;
-
+    string comando = "";
+    //bool * hazard;
+    int nlinha = 0;
 
     if(arquivo.is_open()){
 
-        while (!arquivo.eof())  //adicionado pelo professor
+        while (!arquivo.eof())
         {
+            arquivo >> linha;
+            nlinha++;
+            cout << "\nLinha[" << nlinha << "]: " << linha;
+            cout << "\nOpcode[" << nlinha << "]: ";
 
-            cout << linha << endl;
             for (int i = 25; i <= 31; i++){
-                comando = comando + linha[i];
+                cout << linha[i];
+                comando += linha[i];
             }
-            //cout << endl << comando << endl;
-            for (int i = 22; i<= 26; i++){
-                rd = rd +linha[i];
+            //cout << endl;
 
-            }
-            //cout << rd << endl;
-            for (int i = 12; i<= 16; i++){
-                rs1 = rs1 +linha[i];
-
-            }
-            //cout << rs1 << endl;
-            for (int i = 17; i<= 21; i++){
-                rs2 = rs2 + linha[i];
-            }
-            //cout << rs2 << endl;
             /*
-            hazard = verifica_tipo(stoi(comando), rd, rs1, rs2);
-            rd = rs1 = rs2 = comando = "";
             if (hazard[0] || hazard[1] || hazard[3]){
                 inserir_bolha(linha);
             }
