@@ -34,7 +34,7 @@ def verificaRegistrador(reg):
         if i.reg_bin == reg.reg_bin:
             reg.vezes = 0
             return True
-        elif i.vezes == 2: 
+        elif i.vezes == 3: 
             vetorHazard.pop(i)
             return False
         
